@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Personal Portfolio</title>
+<style>
+  /* Reset and base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f9faff;
+    color: #333;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+  }
+
+  a {
+    color: #3366cc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  a:hover, a:focus {
+    color: #254b8a;
+    outline: none;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 50%;
+  }
+
+  /* Container */
+  .container {
+    width: 90%;
+    max-width: 960px;
+    margin: auto;
+    padding-bottom: 4rem;
+  }
+
+  /* Navigation bar */
+  nav {
+    position: sticky;
+    top: 0;
+    background: #ffffffcc;
+    backdrop-filter: saturate(180%) blur(8px);
+    border-bottom: 1px solid #ddd;
+    z-index: 999;
+  }
+  nav ul {
+    margin: 0;
+    padding: 0.8rem 1rem;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+  }
+  nav li {
+    margin: 0 1rem;
+  }
+  nav a {
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 12px;
+    display: inline-block;
+  }
+  nav a:hover, nav a:focus {
+    background-color: #e0e7ff;
+    color: #1e40af;
+  }
+
+  /* Section headings */
+  h1, h2, h3 {
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Cards */
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(51, 102, 204, 0.15);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card:hover, .card:focus-within {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(51, 102, 204, 0.3);
+  }
+
+  /* Buttons */
+  button, .btn {
+    background-color: #3366cc;
+    border: none;
+    color: white;
+    padding: 0.5rem 1.2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    display: inline-block;
+  }
+  button:hover, button:focus, .btn:hover, .btn:focus {
+    background-color: #254b8a;
+  }
+  button:focus-visible, .btn:focus-visible {
+    outline: 2px solid #254b8a;
+    outline-offset: 2px;
+  }
+
+  /* Responsive grid for projects */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Skills two columns */
+  .skills-columns {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .skill-column {
+    background: #e0e7ff;
+    border-radius: 12px;
+    padding: 1rem;
+    flex: 1;
+  }
+  .skill-column h3 {
+    color: #1e40af;
+  }
+  .skill-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.25rem 0 0 0;
+  }
+  .skill-list li {
+    padding: 0.25rem 0;
+  }
+
+  /* Contact form */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  label {
+    font-weight: 600;
+  }
+  input[type="text"], input[type="email"], textarea {
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 0.5rem;
+    border: 1.5px solid #ccc;
+    border-radius: 10px;
+    resize: vertical;
+    min-height: 40px;
+    transition: border-color 0.3s ease;
+  }
+  input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+    border-color: #3366cc;
+    outline: none;
+  }
+  textarea {
+    min-height: 100px;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    background: #e0e7ffcc;
+    border-top: 1px solid #caccf8;
+    color: #1e3a8a;
+    position: relative;
+    margin-top: 2rem;
+  }
+  .social-links a {
+    margin: 0 0.5rem;
+    color: #3366cc;
+    font-weight: 600;
+  }
+  .social-links a:hover, .social-links a:focus {
+    color: #1e40af;
+  }
+
+  /* Section spacing */
+  section {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid #ddd;
+  }
+
+  /* Introduction */
+  #home {
+    text-align: center;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+  }
+  #home h1 {
+    font-size: 2.25rem;
+    margin-bottom: 0.25rem;
+  }
+  #home img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    margin: 0.5rem auto 1rem;
+    display: block;
+    box-shadow: 0 4px 12px rgba(51, 102, 204, 0.2);
+  }
+  #home p.tagline {
+    font-style: italic;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 1rem;
+  }
+  #home p.career-goals {
+    max-width: 500px;
+    margin: 0 auto;
+    font-weight: 500;
+    color: #444;
+  }
+
+  /* Responsive adaptions */
+  @media (min-width: 600px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .skills-columns {
+      flex-direction: row;
+    }
+  }
+  @media (min-width: 900px) {
+    .projects-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    #home h1 {
+      font-size: 2.75rem;
+    }
+  }
+
+  /* Project card */
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .project-title {
+    font-weight: 700;
+    color: #1e40af;
+    margin-bottom: 0.5rem;
+  }
+  .project-desc {
+    flex-grow: 1;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    color: #444;
+  }
+  .project-tools {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 0.8rem;
+  }
+
+  /* Reflections and learning */
+  #reflections p {
+    max-width: 800px;
+    margin: 0 auto;
+    font-weight: 500;
+    color: #444;
+  }
+
+  /* Achievements list */
+  #achievements ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+  }
+  #achievements li {
+    margin-bottom: 0.5rem;
+  }
+
+</style>
+</head>
+<body>
+
+<nav aria-label="Primary navigation">
+  <ul>
+    <li><a href="#home" tabindex="0">Home</a></li>
+    <li><a href="#about" tabindex="0">About</a></li>
+    <li><a href="#resume" tabindex="0">Resume</a></li>
+    <li><a href="#projects" tabindex="0">Projects</a></li>
+    <li><a href="#skills" tabindex="0">Skills</a></li>
+    <li><a href="#reflections" tabindex="0">Reflections</a></li>
+    <li><a href="#achievements" tabindex="0">Achievements</a></li>
+    <li><a href="#contact" tabindex="0">Contact</a></li>
+  </ul>
+</nav>
+
+<main class="container" role="main">
+
+  <section id="home" tabindex="0" aria-label="Introduction homepage">
+    <h1>Hi , I am Shankar</h1>
+    <img src="C:\Users\shank\OneDrive\Desktop\projects/shankar.jpg" alt="Professional photo or avatar of Me" />
+    <p class="tagline">Innovative Computer Science Student & Aspiring Developer</p>
+    <p class="career-goals">My goal is to create impactful software solutions through continuous learning and collaboration.</p>
+  </section>
+
+  <section id="about" tabindex="0" aria-label="About me">
+    <h2>About Me</h2>
+    <article class="card" tabindex="0">
+      <p>I am a passionate B.Tech 1st year Computer Science Engineering student at CMR Institute of Technology Hyderabad. I have strong interests in computer programming, web development, and technology hardware. I enjoy learning new concepts in engineering mathematics and physics.</p>
+      <p>Academically, I focus on developing practical skills in programming languages like C, JavaScript, and HTML/CSS, alongside strengthening my foundation in mathematics and physics that support computing.</p>
+      <p>My purpose is to build a versatile technical portfolio demonstrating my skills, projects, and ability to solve real-world problems through software.</p>
+    </article>
+  </section>
+
+  <section id="resume" tabindex="0" aria-label="Resume and CV">
+    <h2>Resume / CV</h2>
+
+    <article class="card" tabindex="0">
+      <h3>Education</h3>
+      <ul>
+        <li><strong>CMR Institute of Technology Hyderabad</strong> — B.Tech in Computer Science Engineering (2025 - Present)</li>
+      </ul>
+
+      <h3>Achievements, Awards & Certifications</h3>
+      <ul>
+        <li>Top 10% academic performer in programming fundamentals (2025)</li>
+        <li>Certified C Programming Fundamentals Course (2025)</li>
+        <li>100+ Subscribers in youtube</li>
+      </ul>
+
+      <h3>Extracurricular & Experience</h3>
+      <ul>
+        <li>Developed portfolio website and small coding projects in C language</li>
+        <li>Active member of college coding club</li>
+      </ul>
+    </article>
+  </section>
+
+  <section id="projects" tabindex="0" aria-label="Work samples and projects">
+    <h2>Work Samples / Projects</h2>
+    <div class="projects-grid">
+      <article class="card project-card" tabindex="0">
+        <h3 class="project-title">Portfolio Website</h3>
+        <p class="project-desc">Created a responsive personal portfolio site showcasing projects and skills.</p>
+        <p class="project-tools">HTML, CSS, JavaScript</p>
+        <a href="https://github.com/yourusername/portfolio" class="btn" target="_blank" rel="noopener noreferrer">View GitHub</a>
+      </article>
+      <article class="card project-card" tabindex="0">
+        <h3 class="project-title">Simple C Programs</h3>
+        <p class="project-desc">Developed several beginner to intermediate level programs using C language.</p>
+        <p class="project-tools">C Language, Code Editor</p>
+        <a href="https://github.com/yourusername/c-programs" class="btn" target="_blank" rel="noopener noreferrer">View GitHub</a>
+      </article>
+      <article class="card project-card" tabindex="0">
+        <h3 class="project-title">Web Development Projects</h3>
+        <p class="project-desc">Built responsive webpages using HTML, CSS and JavaScript with interactive elements.</p>
+        <p class="project-tools">HTML, CSS, JavaScript</p>
+        <a href="https://github.com/yourusername/web-projects" class="btn" target="_blank" rel="noopener noreferrer">View GitHub</a>
+      </article>
+    </div>
+  </section>
+
+  <section id="skills" tabindex="0" aria-label="Skills and competencies">
+    <h2>Skills and Competencies</h2>
+    <div class="skills-columns">
+      <div class="skill-column" tabindex="0" aria-label="Hard skills">
+        <h3>Hard Skills</h3>
+        <ul class="skill-list">
+          <li>C Programming</li>
+          <li>Python</li>
+          <li>HTML, CSS, JavaScript</li>
+          <li>Git and GitHub</li>
+          <li>Basic Python</li>
+          <li>Engineering Mathematics</li>
+        </ul>
+      </div>
+      <div class="skill-column" tabindex="0" aria-label="Soft skills">
+        <h3>Soft Skills</h3>
+        <ul class="skill-list">
+          <li>Problem Solving</li>
+          <li>Teamwork and Collaboration</li>
+          <li>Time Management</li>
+          <li>Adaptability</li>
+          <li>Effective Communication</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="reflections" tabindex="0" aria-label="Reflections and learning">
+    <h2>Reflections and Learning</h2>
+    <p>Through my projects, I have learned the importance of clear planning, continuous testing, and user-focused design. Some challenges I faced involved debugging complex code and managing time efficiently. Overcoming these challenges taught me perseverance and effective problem-solving strategies, which I continue to apply in my development work.</p>
+  </section>
+
+  <section id="achievements" tabindex="0" aria-label="Achievements and awards">
+    <h2>Achievements and Awards</h2>
+    <ul>
+      <li>Certified C Programming Fundamentals Course - 2025</li>
+      <li>Ranked Top 10% in Programming Fundamentals - 2025</li>
+      <li>Active Contributor to coding club and college events</li>
+      <li>100+ subscribers in youtube</li>
+    </ul>
+  </section>
+
+  <section id="contact" tabindex="0" aria-label="Contact information and form">
+    <h2>Contact Me</h2>
+    <form id="contact-form" aria-label="Contact form" novalidate>
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" aria-required="true" required placeholder="Your Name" />
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" aria-required="true" required placeholder="you@example.com" />
+      <label for="message">Message</label>
+      <textarea id="message" name="message" aria-required="true" required placeholder="Your message"></textarea>
+      <button type="submit">Send Message</button>
+      <div id="form-message" role="alert" aria-live="polite" style="margin-top: 0.5rem;"></div>
+    </form>
+    <div style="margin-top: 2rem; text-align: center;">
+      <p>Connect with me on:</p>
+      <div class="social-links" aria-label="Social media links">
+        <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" tabindex="0">LinkedIn</a> |
+        <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" tabindex="0">GitHub</a> |
+        <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer" tabindex="0">Twitter</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer role="contentinfo">
+  <p>&copy; 2025 Shankar. All rights reserved.</p>
+  <p class="social-links" aria-label="Footer social links">
+    <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" tabindex="0">LinkedIn</a> |
+    <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" tabindex="0">GitHub</a> |
+    <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer" tabindex="0">Twitter</a>
+  </p>
+</footer>
+
+<script>
+  // Smooth scroll is handled by CSS scroll-behavior.
+  // Contact form submission handling:
+  const form = document.getElementById('contact-form');
+  const formMessage = document.getElementById('form-message');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    // Simple form validation
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const message = form.message.value.trim();
+
+    if (!name || !email || !message) {
+      formMessage.textContent = 'Please fill in all fields.';
+      formMessage.style.color = 'red';
+      return;
+    }
+    // Basic email pattern check
+    const emailPattern = /^[^@s]+@[^@s]+.[^@s]+$/;
+    if (!emailPattern.test(email)) {
+      formMessage.textContent = 'Please enter a valid email address.';
+      formMessage.style.color = 'red';
+      return;
+    }
+
+    // For demo: Just show success message; in real use, integrate with backend or email provider
+    formMessage.textContent = 'Thank you for your message! I will get back to you soon.';
+    formMessage.style.color = 'green';
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
